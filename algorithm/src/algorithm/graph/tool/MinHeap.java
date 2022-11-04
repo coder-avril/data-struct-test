@@ -1,4 +1,4 @@
-package algorithm.graph.heap;
+package algorithm.graph.tool;
 
 import java.util.Collection;
 import java.util.Comparator;

@@ -13,7 +13,8 @@ import java.util.Queue;
 import java.util.Set;
 import java.util.Stack;
 import algorithm.graph.base.Graph;
-import algorithm.graph.heap.MinHeap;
+import algorithm.graph.tool.GenericUnionFind;
+import algorithm.graph.tool.MinHeap;
 
 /**
  * ListGraph 图（邻接表实现方案）
@@ -320,11 +321,31 @@ public class ListGraph<V, E> extends Graph<V, E> {
 	
 	/**
 	 * 最小生成树-kruskal算法
+	 * 
+	 * ◼ 按照边的权重顺序（从小到大）将边加入生成树中，直到生成树中含有 V – 1 条边为止（ V 是顶点数量）
 	 */
 	@SuppressWarnings("unused")
 	private Set<EdgeInfo<V, E>> kruskal() {
-		// TODO
-		return null;
+		int edgeSize = vertices.size() - 1;
+		if (edgeSize == -1) return null;
+		
+		Set<EdgeInfo<V, E>> edgeInfos = new HashSet<>();
+		MinHeap<Edge<V, E>> heap = new MinHeap<>(edges, edgeComparator);
+		GenericUnionFind<Vertex<V, E>> uf = new GenericUnionFind<>();
+		vertices.forEach((v, vertex) -> { // 初始化并查集
+			uf.makeSet(vertex);
+		});
+		
+		while (!heap.isEmpty() && edgeInfos.size() < edgeSize) {
+			Edge<V, E> edge = heap.remove();
+			// 若加入该边会与生成树形成环，则不加入该边
+			if (uf.isSame(edge.from, edge.to)) continue;
+			
+			edgeInfos.add(edge.info());
+			uf.union(edge.from, edge.to);
+		}
+		
+		return edgeInfos;
 	}
 	
 	/**
