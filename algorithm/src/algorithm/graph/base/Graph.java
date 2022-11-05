@@ -1,6 +1,8 @@
 package algorithm.graph.base;
 
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -53,8 +55,50 @@ public abstract class Graph<V, E> {
 	/** 拓扑排序（解决有向无环图的顺序问题） */
 	public abstract List<V> topologicalSort();
 	
+	/**
+	 * 最短路径
+	 * @param begin 起点
+	 * @return 任意顶点与起点之间距离的Map
+	 */
+	public abstract Map<V, PathInfo<V, E>> shortestPath(V begin);
+	
+	/** 多源最短路径 */
+	public abstract Map<V, Map<V, PathInfo<V, E>>> shortestPath();
+	
 	/** 最小生成树 */
 	public abstract Set<EdgeInfo<V, E>> mst();
+	
+	/** 求最短路径所用到的路径信息  */
+	public static class PathInfo<V, E> {
+		private E weight;
+		private List<EdgeInfo<V, E>> edgeInfos = new LinkedList<>();
+		
+		public PathInfo() {}
+		
+		public PathInfo(E weight) {
+			this.weight = weight;
+		}
+		
+		public E getWeight() {
+			return weight;
+		}
+		
+		public void setWeight(E weight) {
+			this.weight = weight;
+		}
+		
+		public List<EdgeInfo<V, E>> getEdgeInfos() {
+			return edgeInfos;
+		}
+		
+		public void setEdgeInfos(List<EdgeInfo<V, E>> edgeInfos) {
+			this.edgeInfos = edgeInfos;
+		}
+		@Override
+		public String toString() {
+			return "PathInfo [weight=" + weight + ", edgeInfos=" + edgeInfos + "]";
+		}
+	}
 	
 	/** 最小生成树的边信息 */
 	public static class EdgeInfo<V, E> {
@@ -108,6 +152,9 @@ public abstract class Graph<V, E> {
         
         /* 为最短路径服务（两个权值相加） */
         E add(E w1, E w2);
+        
+        /* 自定义什么情况算是0 */
+        E zero();
     }
 	
 	@FunctionalInterface
