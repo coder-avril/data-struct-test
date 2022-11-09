@@ -32,7 +32,7 @@ public class Fibonacci {
 	 * @param n
 	 */
 	public int fib_ver0(int n) {
-		if (n < 3) return 1;
+		if (n <= 2) return 1;
 		return fib_ver0(n - 1) + fib_ver0(n - 2);
 	}
 	
@@ -45,7 +45,7 @@ public class Fibonacci {
 	 * @param n
 	 */
 	public int fib_ver1(int n) {
-		if (n < 3) return 1;
+		if (n <= 2) return 1;
 		// 这里故意让容量多一个 可以直接让数组的下标与n匹配 避免n-1操作 提升效率
 		int[] array = new int[n + 1]; 
 		/* 初始化 */
@@ -69,7 +69,7 @@ public class Fibonacci {
 	 * @param n
 	 */
 	public int fib_ver2(int n) {
-		if (n < 3) return 1;
+		if (n <= 2) return 1;
 		int[] array = new int[n + 1];
 		array[2] = array[1] = 1;
 		/* 通过for循环替换掉递归 */
@@ -88,7 +88,7 @@ public class Fibonacci {
 	 * @param n
 	 */
 	public int fib_ver3(int n) {
-		if (n < 3) return 1;
+		if (n <= 2) return 1;
 		/* 仔细思考斐波那契额数列 可以知道 其实每次运算只用到2个元素 */
 		int[] array = new int[2];
 		array[1] = array[0] = 1;
@@ -113,7 +113,7 @@ public class Fibonacci {
 	 * @param n
 	 */
 	public int fib_ver4(int n) {
-		if (n < 3) return 1;
+		if (n <= 2) return 1;
 		/* 仔细思考斐波那契额数列 可以知道 其实每次运算只用到2个元素 */
 		int[] array = new int[2];
 		array[1] = array[0] = 1;
@@ -132,7 +132,7 @@ public class Fibonacci {
 	 * @param n
 	 */
 	public int fib_ver5(int n) {
-		if (n < 3) return 1;
+		if (n <= 2) return 1;
 		int first = 1;
 		int second = 1;
 		
