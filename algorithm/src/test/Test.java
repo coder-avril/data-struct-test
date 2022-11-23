@@ -1,5 +1,6 @@
 package test;
 
+import algorithm.bloomFilter.BloomFilter;
 import algorithm.graph.ListGraph;
 
 public class Test {
@@ -14,5 +15,13 @@ public class Test {
 		
 		graph.removeVertex("V0");
 		graph.print();
+		
+		BloomFilter<Integer> bf = new BloomFilter<>(1_00_0000, 0.01);
+		for (int i = 1; i <= 50; i++) {
+			bf.put(i);
+		}
+		for (int i = 1; i <= 50; i++) {
+			System.out.println(bf.contains(i));
+		}
 	}
 }
